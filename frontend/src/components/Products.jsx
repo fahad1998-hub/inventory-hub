@@ -4,13 +4,18 @@ import { api } from '../api.js'
 export default function Products() {
   const [products, setProducts] = useState([])
   const [message, setMessage] = useState(null)
+  const [loading, setLoading] = useState(true)     // list is being fetched
+  const [submitting, setSubmitting] = useState(false) // create request in flight
   const [form, setForm] = useState({ sku: '', name: '', description: '', price: '', stock: '' })
 
   async function load() {
+    setLoading(true)
     try {
       setProducts(await api.products.list())
     } catch (e) {
       setMessage({ type: 'error', text: e.message })
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -22,6 +27,8 @@ export default function Products() {
 
   async function submit(e) {
     e.preventDefault()
+    setSubmitting(true)
+    setMessage(null)
     try {
       await api.products.create({
         sku: form.sku.trim(),
@@ -35,6 +42,8 @@ export default function Products() {
       load()
     } catch (e) {
       setMessage({ type: 'error', text: e.message })
+    } finally {
+      setSubmitting(false)
     }
   }
 
@@ -78,33 +87,40 @@ export default function Products() {
                      onChange={(e) => change('stock', e.target.value)} required />
             </div>
           </div>
-          <button className="primary" type="submit">Create product</button>
+          <button className="primary" type="submit" disabled={submitting}>
+            {submitting && <span className="btn-spinner" />}
+            {submitting ? 'Creating…' : 'Create product'}
+          </button>
         </form>
       </div>
 
       <div className="card">
         <h2>Products ({products.length})</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>SKU</th><th>Name</th><th>Price</th><th>Stock</th><th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.map((p) => (
-              <tr key={p.id}>
-                <td>{p.sku}</td>
-                <td>{p.name}</td>
-                <td>₹{p.price.toFixed(2)}</td>
-                <td className={p.stock <= 5 ? 'low-stock' : ''}>{p.stock}</td>
-                <td><button className="danger" onClick={() => remove(p.id)}>Delete</button></td>
+        {loading ? (
+          <div className="loader"><span className="spinner" /> Loading products…</div>
+        ) : (
+          <table>
+            <thead>
+              <tr>
+                <th>SKU</th><th>Name</th><th>Price</th><th>Stock</th><th></th>
               </tr>
-            ))}
-            {products.length === 0 && (
-              <tr><td colSpan="5">No products yet.</td></tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {products.map((p) => (
+                <tr key={p.id}>
+                  <td>{p.sku}</td>
+                  <td>{p.name}</td>
+                  <td>₹{p.price.toFixed(2)}</td>
+                  <td className={p.stock <= 5 ? 'low-stock' : ''}>{p.stock}</td>
+                  <td><button className="danger" onClick={() => remove(p.id)}>Delete</button></td>
+                </tr>
+              ))}
+              {products.length === 0 && (
+                <tr><td colSpan="5">No products yet.</td></tr>
+              )}
+            </tbody>
+          </table>
+        )}
       </div>
     </>
   )

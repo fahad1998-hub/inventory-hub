@@ -95,6 +95,29 @@ th { color: #52606d; font-weight: 600; }
 .message.error { background: #fde8e8; color: #9b1c1c; }
 .message.success { background: #def7ec; color: #03543f; }
 
+/* Loading spinner */
+.loader { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 24px; color: #52606d; font-size: 14px; }
+.spinner {
+  width: 18px; height: 18px;
+  border: 3px solid #cbd2d9;
+  border-top-color: #2563eb;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  flex-shrink: 0;
+}
+.btn-spinner {
+  width: 14px; height: 14px;
+  border: 2px solid rgba(255,255,255,0.5);
+  border-top-color: #fff;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+button:disabled { opacity: 0.65; cursor: not-allowed; }
+
 /* Order line builder */
 .order-line { display: flex; gap: 8px; align-items: flex-end; margin-bottom: 8px; }
 .order-line > div { flex: 1; }

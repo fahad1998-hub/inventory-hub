@@ -6,11 +6,14 @@ export default function Orders() {
   const [products, setProducts] = useState([])
   const [customers, setCustomers] = useState([])
   const [message, setMessage] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [placing, setPlacing] = useState(false)
 
   const [customerId, setCustomerId] = useState('')
   const [lines, setLines] = useState([{ product_id: '', quantity: 1 }])
 
   async function load() {
+    setLoading(true)
     try {
       const [o, p, c] = await Promise.all([
         api.orders.list(),
@@ -20,6 +23,8 @@ export default function Orders() {
       setOrders(o); setProducts(p); setCustomers(c)
     } catch (e) {
       setMessage({ type: 'error', text: e.message })
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -47,6 +52,8 @@ export default function Orders() {
 
   async function submit(e) {
     e.preventDefault()
+    setPlacing(true)
+    setMessage(null)
     try {
       await api.orders.create({
         customer_id: Number(customerId),
@@ -60,7 +67,17 @@ export default function Orders() {
       load()
     } catch (e) {
       setMessage({ type: 'error', text: e.message })
+    } finally {
+      setPlacing(false)
     }
+  }
+
+  if (loading) {
+    return (
+      <div className="card">
+        <div className="loader"><span className="spinner" /> Loading…</div>
+      </div>
+    )
   }
 
   return (
@@ -115,7 +132,10 @@ export default function Orders() {
 
             <button type="button" className="link" onClick={addLine}>+ add another item</button>
             <p><strong>Estimated total: ₹{estimatedTotal.toFixed(2)}</strong></p>
-            <button className="primary" type="submit">Place order</button>
+            <button className="primary" type="submit" disabled={placing}>
+              {placing && <span className="btn-spinner" />}
+              {placing ? 'Placing order…' : 'Place order'}
+            </button>
           </form>
         )}
       </div>
