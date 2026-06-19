@@ -1,0 +1,4 @@
+# Don't copy these into the Docker build — node_modules is rebuilt inside.
+node_modules
+dist
+.env

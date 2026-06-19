@@ -1,0 +1,17 @@
+# Secrets — never commit the real environment file.
+.env
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Node / frontend
+node_modules/
+dist/
+
+# OS noise
+.DS_Store
+
+

@@ -1,0 +1,105 @@
+/* Basic, responsive styling. No CSS framework — kept simple to read. */
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  background: #f4f6f8;
+  color: #1f2933;
+}
+
+header {
+  background: #1f2933;
+  color: #fff;
+  padding: 18px 24px;
+}
+header h1 { margin: 0; font-size: 20px; }
+
+/* Tab navigation */
+nav {
+  display: flex;
+  gap: 8px;
+  padding: 12px 24px;
+  background: #fff;
+  border-bottom: 1px solid #e4e7eb;
+  flex-wrap: wrap;
+}
+nav button {
+  border: none;
+  background: #e4e7eb;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+nav button.active { background: #2563eb; color: #fff; }
+
+main { padding: 24px; max-width: 1000px; margin: 0 auto; }
+
+.card {
+  background: #fff;
+  border: 1px solid #e4e7eb;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+.card h2 { margin-top: 0; font-size: 18px; }
+
+/* Forms */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+label { display: block; font-size: 13px; margin-bottom: 4px; color: #52606d; }
+input, select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #cbd2d9;
+  border-radius: 6px;
+  font-size: 14px;
+}
+button.primary {
+  margin-top: 12px;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 9px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+button.danger {
+  background: #ef4444; color: #fff; border: none;
+  padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+button.link {
+  background: none; border: none; color: #2563eb;
+  cursor: pointer; font-size: 13px; padding: 5px 8px;
+}
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+th, td {
+  text-align: left;
+  padding: 10px 8px;
+  border-bottom: 1px solid #e4e7eb;
+  font-size: 14px;
+}
+th { color: #52606d; font-weight: 600; }
+.low-stock { color: #b91c1c; font-weight: 600; }
+
+/* Messages */
+.message { padding: 10px 14px; border-radius: 6px; margin-bottom: 16px; font-size: 14px; }
+.message.error { background: #fde8e8; color: #9b1c1c; }
+.message.success { background: #def7ec; color: #03543f; }
+
+/* Order line builder */
+.order-line { display: flex; gap: 8px; align-items: flex-end; margin-bottom: 8px; }
+.order-line > div { flex: 1; }
+
+@media (max-width: 600px) {
+  table, thead, tbody, th, td, tr { font-size: 13px; }
+  .order-line { flex-wrap: wrap; }
+}
