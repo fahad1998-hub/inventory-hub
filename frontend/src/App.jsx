@@ -32,7 +32,7 @@ export default function App() {
   if (status === 'checking') {
     return (
       <main>
-        <div className="loader"><span className="spinner" /> Connecting…</div>
+        <div className="loader"><span className="spinner" /> Connecting… please wait, it can take up to 50 seconds..</div>
       </main>
     )
   }
