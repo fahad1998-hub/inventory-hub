@@ -118,6 +118,39 @@ th { color: #52606d; font-weight: 600; }
 @keyframes spin { to { transform: rotate(360deg); } }
 button:disabled { opacity: 0.65; cursor: not-allowed; }
 
+/* Service-down page */
+.service-down {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.service-down-card {
+  background: #fff;
+  border: 1px solid #e4e7eb;
+  border-radius: 10px;
+  padding: 40px 32px;
+  max-width: 440px;
+  text-align: center;
+}
+.service-down-icon { font-size: 44px; line-height: 1; margin-bottom: 8px; }
+.service-down-brand { margin: 0 0 16px; font-size: 16px; color: #1f2933; font-weight: 600; }
+.service-down-status {
+  display: inline-block;
+  background: #fde8e8;
+  color: #9b1c1c;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+.service-down-card h2 { margin: 0 0 12px; font-size: 20px; }
+.service-down-card p { margin: 0 0 14px; color: #52606d; font-size: 14px; line-height: 1.5; }
+.service-down-contact { color: #1f2933; }
+.service-down-card button.primary { margin-top: 8px; }
+
 /* Order line builder */
 .order-line { display: flex; gap: 8px; align-items: flex-end; margin-bottom: 8px; }
 .order-line > div { flex: 1; }

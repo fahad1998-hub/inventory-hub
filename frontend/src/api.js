@@ -24,6 +24,17 @@ async function request(path, options = {}) {
 }
 
 export const api = {
+  // Pings the backend health endpoint. The proxy strips "/api", so "/api/"
+  // maps to the backend's "/" health route. Returns true if the service
+  // responds, false on any network error or non-OK status.
+  health: async () => {
+    try {
+      const res = await fetch(`${BASE}/`, { headers: { 'Content-Type': 'application/json' } })
+      return res.ok
+    } catch {
+      return false
+    }
+  },
   products: {
     list: () => request('/products'),
     create: (data) => request('/products', { method: 'POST', body: JSON.stringify(data) }),
